@@ -5,6 +5,7 @@ your *.py file in Canvas. I will download and test your program from Canvas.
 
 import time
 import sys
+import random
 INF = sys.maxsize
 
 
@@ -46,10 +47,36 @@ def TSPwGenAlgo(
     solution_distance = INF # distance of final solution path, note this should include edge back to starting vert
     avg_path_each_generation = [] # store average path length path across individuals in each generation
 
-    # create individual members of the population
+    v = len(g)
 
+    verts = []
+    population = []
+    fitness = []
+
+    for i in range(v):
+        verts.append(i)
+    
+    
+    # create individual members of the population and shuffle their order
+    for i in range(population_size):
+
+        order = []
+        for j in range(v):
+            order.append(j)
+
+        random.shuffle(order)
+        population.append(order)
+    
+    for pop in population:
+        fit_tally = 0
+
+        for i in range(len(pop)-1):
+            fit_tally += g[pop[i]][pop[i+1]]
+        print(fit_tally)
+        fitness.append(fit_tally)
+    
+    print(population)
     # initialize individuals to an initial 'solution'
-
     # loop for x number of generations (can also choose to add other early-stopping criteria)
 
         # calculate fitness of each individual in the population
