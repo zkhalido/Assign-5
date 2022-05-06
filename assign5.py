@@ -56,7 +56,6 @@ def TSPwGenAlgo(
     for i in range(v):
         verts.append(i)
     
-    
     # create individual members of the population and shuffle their order
     for i in range(population_size):
 
