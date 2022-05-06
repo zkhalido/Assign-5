@@ -29,6 +29,28 @@ def adjMatFromFile(filename):
     f.close()
     return adjmat
 
+def populationFill(population, population_size, v):
+    for i in range(population_size):
+
+        order = []
+        for j in range(v):
+            order.append(j)
+
+        random.shuffle(order)
+        population.append(order)
+
+    return population
+
+def fitness_calculator(population, fitness, g):
+    for pop in population:
+        fit_tally = 0
+
+        for i in range(len(pop)-1):
+            fit_tally += g[pop[i]][pop[i+1]]
+
+        fitness.append(fit_tally)
+
+    return fitness
 
 def TSPwGenAlgo(
         g,
@@ -49,32 +71,15 @@ def TSPwGenAlgo(
 
     v = len(g)
 
-    verts = []
     population = []
     fitness = []
-
-    for i in range(v):
-        verts.append(i)
     
     # create individual members of the population and shuffle their order
-    for i in range(population_size):
+    population = populationFill(population, population_size, v)
+    fitness = fitness_calculator(population, fitness, g)
 
-        order = []
-        for j in range(v):
-            order.append(j)
-
-        random.shuffle(order)
-        population.append(order)
     
-    for pop in population:
-        fit_tally = 0
-
-        for i in range(len(pop)-1):
-            fit_tally += g[pop[i]][pop[i+1]]
-        print(fit_tally)
-        fitness.append(fit_tally)
     
-    print(population)
     # initialize individuals to an initial 'solution'
     # loop for x number of generations (can also choose to add other early-stopping criteria)
 
